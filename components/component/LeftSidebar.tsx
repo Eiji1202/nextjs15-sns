@@ -10,17 +10,22 @@ import {
   HeartIcon,
   SettingsIcon,
 } from "./Icons";
+import { auth } from "@clerk/nextjs/server";
 
-const navItems = [
-  { icon: HomeIcon, label: "Home", href: "/" },
-  { icon: CompassIcon, label: "Explore", href: "/explore" },
-  { icon: BookmarkIcon, label: "Bookmarks", href: "/bookmarks" },
-  { icon: UserIcon, label: "Profile", href: "/profile" },
-  { icon: MessageCircleIcon, label: "Messages", href: "/messages" },
-  { icon: HeartIcon, label: "Likes", href: "/likes" },
-];
 
 export default function LeftSidebar() {
+  const {userId} = auth();
+  if(!userId) return;
+
+  const navItems = [
+    { icon: HomeIcon, label: "Home", href: "/" },
+    { icon: CompassIcon, label: "Explore", href: "/explore" },
+    { icon: BookmarkIcon, label: "Bookmarks", href: "/bookmarks" },
+    { icon: UserIcon, label: "Profile", href: `/profile/${userId}` },
+    { icon: MessageCircleIcon, label: "Messages", href: "/messages" },
+    { icon: HeartIcon, label: "Likes", href: "/likes" },
+  ];
+
   return (
     <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg shadow-md p-4 h-full flex flex-col">
       <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">

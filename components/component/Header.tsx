@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { LogInIcon, SearchIcon, BellIcon, MailIcon } from "./Icons";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { Link1Icon } from "@radix-ui/react-icons";
+import { User2Icon } from "lucide-react";
 
 export default function Header() {
   return (
@@ -28,9 +31,17 @@ export default function Header() {
             <MailIcon className="h-6 w-6 text-muted-foreground" />
           </Link>
 
-          <Link href="#" className="flex items-center gap-2" prefetch={false}>
-            <div></div>
-          </Link>
+
+          <div className="flex items-center">
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              <Link href="/sign-in" className="w-14 text-center inline-block text-sm">
+                ログイン
+              </Link>
+            </SignedOut>
+          </div>
         </div>
       </div>
     </header>
